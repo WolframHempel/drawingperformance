@@ -32,17 +32,17 @@ Sparkline.defaults = {
 	/**
 	* The color of the line
 	*/
-	lineColor: "#333",
+	lineColor: "#1B4CE0",
 
 	/**
 	* The thickness of the line
 	*/
-	lineWeight: 2,
+	lineWeight: 4,
 
 	/**
 	* The color of the filled area
 	*/
-	fillColor: "#ccc",
+	fillColor: "#C8CEE0",
 
 	/**
 	* A relative padding to be added to the yCoordinates
@@ -58,10 +58,10 @@ Sparkline.prototype.addDataPoint = function( nDataPoint )
 {
 	this._pValues.push( nDataPoint );
 	this._pTimestamps.push( this._now() );
-	
+
 	this._updateData();
 	this._updateMinMax();
-	
+
 	if( this._pValues.length > 1 )
 	{
 		this._draw();
@@ -79,6 +79,25 @@ Sparkline.prototype.setRenderer = function( oRenderer )
 	this._oRenderer.init( this._eContainer, this._mSettings );
 };
 
+Sparkline.prototype.destroy = function()
+{
+	if( this._oRenderer )
+	{
+		this._oRenderer.destroy();
+	}
+};
+
+Sparkline.prototype.setSize = function( nWidth, nHeight )
+{
+	this._mSettings.width = nWidth;
+	this._mSettings.height = nHeight;
+
+	if( this._oRenderer )
+	{
+		this._oRenderer.setSize( nWidth, nHeight );
+	}
+};
+
 Sparkline.prototype._draw = function()
 {
 	var pXCoords = this._calculateXCoords();
@@ -88,7 +107,7 @@ Sparkline.prototype._draw = function()
 	{
 		this._oRenderer.draw( pXCoords, pYCoords );
 	}
-	
+
 	requestAnimationFrame( this._draw.bind( this ) );
 };
 

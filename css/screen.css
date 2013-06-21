@@ -25,6 +25,10 @@ body{
 	height: 94%;
 }
 
+#output > li{
+	border-bottom: 1px solid #ccc;
+}
+
 #sparklineContainer{
 	width: 300px;
 	height: 200px;

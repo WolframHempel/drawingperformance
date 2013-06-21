@@ -28,7 +28,7 @@
 
 			<!-- Left column -->
 			<div class="span10 fullHeight">
-				<div id="output"></div>
+				<ul id="output"></ul>
 			</div>
 
 			<!-- Right column -->
@@ -53,10 +53,10 @@
 						</ul>
 					</fieldset>
 					<fieldset>
-						<legend>Charts</legend>
+						<legend>Number of Charts</legend>
 						<ul class="numberOfCharts">
 							<li>
-								<button class="btn" data-bind="click:setChartNumber.bind($data, -1), enable:chartNumber()>0">-</button>
+								<button class="btn" data-bind="click:setChartNumber.bind($data, -1), enable:chartNumber() > 1">-</button>
 								<input type="text" data-bind="value:chartNumber"/>
 								<button class="btn" data-bind="click:setChartNumber.bind($data, 1)">+</button>
 							</li>
@@ -69,7 +69,7 @@
 								class="btn btn-primary" 
 								data-bind="
 									css:{'btn-primary': $parent.activeRenderer()===className},
-									click:$parent.setRenderer.bind( $parent, className),
+									click:$parent.activeRenderer.bind( $parent, className),
 									html:name">
 							</li>
 						</ul>
