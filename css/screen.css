@@ -45,6 +45,17 @@ body{
 	margin-top: 5%;
 }
 
+#controls button.dataGeneration{
+	width: 171px;
+}
 #controls input{
 	width: 159px;
+}
+
+#controls .numberOfCharts button{
+	vertical-align: top;
+}
+
+#controls .numberOfCharts input{
+	width: 84px;
 }

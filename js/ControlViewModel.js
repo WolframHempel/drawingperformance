@@ -4,21 +4,28 @@ ControlViewModel = function()
 
 	this.renderer = ko.observableArray([
 		{ "className": "CanvasApiRenderer", "name": "Canvas API Renderer" },
-		{ "className": "CanvasPixelRenderer", "name": "Canvas Pixel Renderer" },
+		{ "className": "CanvasPixelRenderer", "name": "Canvas Pixel Renderer" }
 	]);
 
 	this.selectedRenderer = ko.observable( "" );
 	this._nTimeout = null;
-	
+
 	this.isRunning = ko.observable( true );
-	this.toggleText = ko.observable( "stop" );
-	this.activeRenderer = ko.observable()
+	this.toggleText = ko.observable( "running" );
+	this.activeRenderer = ko.observable( "" );
+	this.chartNumber = ko.observable( 1 );
 
 	this.updatesPerSeconds = ko.observable( 1 );
 	this.updatesPerSeconds.subscribe( this.onFrequencyUpdate.bind( this ) );
 	this.value = ko.observable( 1 );
+
 	this.setRenderer( this.renderer()[0].className );
 	this.addPoint();
+};
+
+ControlViewModel.prototype.setChartNumber = function( nOffset )
+{
+	this.chartNumber( this.chartNumber() + nOffset );
 };
 
 ControlViewModel.prototype.onFrequencyUpdate = function()
@@ -42,13 +49,13 @@ ControlViewModel.prototype.toggle = function()
 	{
 		clearTimeout( this._nTimeout );
 		this.isRunning( false );
-		this.toggleText( "start" );
+		this.toggleText( "paused" );
 	}
 	else
 	{
 		this.addPoint();
 		this.isRunning( true );
-		this.toggleText( "stop" );
+		this.toggleText( "running" );
 	}
 };
 

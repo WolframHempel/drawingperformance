@@ -46,8 +46,21 @@
 								<label>Current Value</label>
 								<input type="text" data-bind="value:value" />
 							</li>
+							<li>
+								<label>Data generation is</label>
+								<button class="btn dataGeneration" data-bind="click:toggle, text: toggleText, css:{'btn-success': isRunning}"></button>
+							</li>
 						</ul>
-						<div class="btn btn-primary" data-bind="click:toggle, text: toggleText"></div>
+					</fieldset>
+					<fieldset>
+						<legend>Charts</legend>
+						<ul class="numberOfCharts">
+							<li>
+								<button class="btn" data-bind="click:setChartNumber.bind($data, -1), enable:chartNumber()>0">-</button>
+								<input type="text" data-bind="value:chartNumber"/>
+								<button class="btn" data-bind="click:setChartNumber.bind($data, 1)">+</button>
+							</li>
+						</ul>
 					</fieldset>
 					<fieldset>
 						<legend>Renderer</legend>
