@@ -1,0 +1,2 @@
+
+ko.applyBindings( new ControlViewModel() );

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Stand alone sparkline</title>
+		<script type="text/javascript" src="js/knockout.js"></script>
+		<script type="text/javascript" src="js/ControlViewModel.js"></script>
+		<script type="text/javascript" src="js/Sparkline.js"></script>
+		<script type="text/javascript" src="js/CanvasApiRenderer.js"></script>
+		<script type="text/javascript" src="js/CanvasPixelRenderer.js"></script>
+		<link type="text/css" href="css/screen.css" media="screen" rel="stylesheet" />
+	</head>
+	<body>
+		<div id="wrapper">
+			<div id="centerMarker"></div>
+			<div id="sparklineContainer"></div>
+
+			<div class="controls">
+				<fieldset>
+					<legend>Data Generator</legend>
+					<ul>
+						<li>
+							<label>Updates per second</label>
+							<input type="text" data-bind="value:updatesPerSeconds" />
+							<input type="range" data-bind="value:updatesPerSeconds" min="0.1" max = "40" />
+						</li>
+						<li>
+							<label>Current Value</label>
+							<input type="text" data-bind="value:value" />
+						</li>
+					</ul>
+					<button data-bind="click:toggle, text: toggleText"></button>
+
+				</fieldset>
+				<ul>
+					<li data-bind="click:setRenderer(CanvasApiRenderer)">Canvas Api Renderer</li>
+					<li onclick="click:setRenderer(CanvasPixelRenderer)">Canvas Pixel Renderer</li>
+				</ul>
+			</div>
+		</div>
+		
+		
+		<script type="text/javascript" src="js/start.js"></script>
+	</body>
+</html>
