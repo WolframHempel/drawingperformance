@@ -1,2 +1,6 @@
+renderer = {};
 
-ko.applyBindings( new ControlViewModel() );
+window.onload = function()
+{
+	ko.applyBindings( new ControlViewModel() );
+};

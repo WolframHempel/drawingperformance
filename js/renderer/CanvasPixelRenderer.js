@@ -1,4 +1,4 @@
-CanvasPixelRenderer = function()
+renderer.CanvasPixelRenderer = function()
 {
 	this._eCanvas = null;
 	this._oContext = null;
@@ -7,7 +7,7 @@ CanvasPixelRenderer = function()
 	this._nHeight = null;
 };
 
-CanvasPixelRenderer.prototype.init = function( eContainer, mSettings )
+renderer.CanvasPixelRenderer.prototype.init = function( eContainer, mSettings )
 {
 	this._eContainer = eContainer;
 	this._eCanvas = document.createElement( "canvas" );
@@ -19,12 +19,12 @@ CanvasPixelRenderer.prototype.init = function( eContainer, mSettings )
 	this._oContext.fillStyle = mSettings.fillColor;
 };
 
-CanvasPixelRenderer.prototype.destroy = function()
+renderer.CanvasPixelRenderer.prototype.destroy = function()
 {
 	this._eCanvas.remove();
 };
 
-CanvasPixelRenderer.prototype.setSize = function( nWidth, nHeight )
+renderer.CanvasPixelRenderer.prototype.setSize = function( nWidth, nHeight )
 {
 	this._nWidth = nWidth;
 	this._nHeight = nHeight;
@@ -32,7 +32,7 @@ CanvasPixelRenderer.prototype.setSize = function( nWidth, nHeight )
 	this._eCanvas.height = nHeight;
 };
 
-CanvasPixelRenderer.prototype.draw = function( pXCoords, pYCoords )
+renderer.CanvasPixelRenderer.prototype.draw = function( pXCoords, pYCoords )
 {
 	var oImageData = this._oContext.createImageData( this._nWidth, this._nHeight );
 

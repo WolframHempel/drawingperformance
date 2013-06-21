@@ -1,4 +1,4 @@
-CanvasApiRenderer = function()
+renderer.CanvasApiRenderer = function()
 {
 	this._eCanvas = null;
 	this._oContext = null;
@@ -7,7 +7,7 @@ CanvasApiRenderer = function()
 	this._nHeight = null;
 };
 
-CanvasApiRenderer.prototype.init = function( eContainer, mSettings )
+renderer.CanvasApiRenderer.prototype.init = function( eContainer, mSettings )
 {
 	this._eContainer = eContainer;
 	this._eCanvas = document.createElement( "canvas" );
@@ -19,12 +19,12 @@ CanvasApiRenderer.prototype.init = function( eContainer, mSettings )
 	this._oContext.fillStyle = mSettings.fillColor;
 };
 
-CanvasApiRenderer.prototype.destroy = function()
+renderer.CanvasApiRenderer.prototype.destroy = function()
 {
 	this._eCanvas.remove();
 };
 
-CanvasApiRenderer.prototype.setSize = function( nWidth, nHeight )
+renderer.CanvasApiRenderer.prototype.setSize = function( nWidth, nHeight )
 {
 	this._nWidth = nWidth;
 	this._nHeight = nHeight;
@@ -32,7 +32,7 @@ CanvasApiRenderer.prototype.setSize = function( nWidth, nHeight )
 	this._eCanvas.height = nHeight;
 };
 
-CanvasApiRenderer.prototype.draw = function( pXCoords, pYCoords )
+renderer.CanvasApiRenderer.prototype.draw = function( pXCoords, pYCoords )
 {
 	this._oContext.clearRect( 0, 0, this._nWidth, this._nHeight );
 	this._oContext.beginPath();

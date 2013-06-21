@@ -1,15 +1,23 @@
 ControlViewModel = function()
 {
-	this._oSparkline = new Sparkline( document.getElementById( "sparklineContainer" ) );
-	this._oSparkline.setRenderer( new CanvasApiRenderer() );
+	this._oSparkline = new Sparkline( document.getElementById( "output" ) );
+
+	this.renderer = ko.observableArray([
+		{ "className": "CanvasApiRenderer", "name": "Canvas API Renderer" },
+		{ "className": "CanvasPixelRenderer", "name": "Canvas Pixel Renderer" },
+	]);
+
+	this.selectedRenderer = ko.observable( "" );
 	this._nTimeout = null;
 	
 	this.isRunning = ko.observable( true );
 	this.toggleText = ko.observable( "stop" );
+	this.activeRenderer = ko.observable()
 
 	this.updatesPerSeconds = ko.observable( 1 );
 	this.updatesPerSeconds.subscribe( this.onFrequencyUpdate.bind( this ) );
 	this.value = ko.observable( 1 );
+	this.setRenderer( this.renderer()[0].className );
 	this.addPoint();
 };
 
@@ -22,9 +30,10 @@ ControlViewModel.prototype.onFrequencyUpdate = function()
 	}
 };
 
-ControlViewModel.prototype.setRenderer = function( fRenderer )
+ControlViewModel.prototype.setRenderer = function( sClassName )
 {
-	this._oSparkline.setRenderer( new fRenderer() );
+	this.activeRenderer( sClassName );
+	this._oSparkline.setRenderer( new renderer[ sClassName ]() );
 };
 
 ControlViewModel.prototype.toggle = function()

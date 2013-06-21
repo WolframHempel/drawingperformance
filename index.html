@@ -1,44 +1,68 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Stand alone sparkline</title>
-		<script type="text/javascript" src="js/knockout.js"></script>
+		<title>Realtime charting performance</title>
+	
+		<!-- Thirdparty -->
+		<script type="text/javascript" src="lib/knockout.js"></script>
+
+		<!-- Scripts -->
+		<script type="text/javascript" src="js/start.js"></script>
 		<script type="text/javascript" src="js/ControlViewModel.js"></script>
 		<script type="text/javascript" src="js/Sparkline.js"></script>
-		<script type="text/javascript" src="js/CanvasApiRenderer.js"></script>
-		<script type="text/javascript" src="js/CanvasPixelRenderer.js"></script>
+
+		<!-- Renderer -->
+		<script type="text/javascript" src="js/renderer/CanvasApiRenderer.js"></script>
+		<script type="text/javascript" src="js/renderer/CanvasPixelRenderer.js"></script>
+		
+		<!-- Styles -->
+		<link type="text/css" href="css/bootstrap.min.css" media="screen" rel="stylesheet" />
+		<link type="text/css" href="css/bootstrap-responsive.min.css" media="screen" rel="stylesheet" />
 		<link type="text/css" href="css/screen.css" media="screen" rel="stylesheet" />
+
+		<!-- Fluid layout -->
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	</head>
-	<body>
-		<div id="wrapper">
-			<div id="centerMarker"></div>
-			<div id="sparklineContainer"></div>
+	<body class="container-fluid">
+		<div class="row-fluid fullHeight">
 
-			<div class="controls">
-				<fieldset>
-					<legend>Data Generator</legend>
-					<ul>
-						<li>
-							<label>Updates per second</label>
-							<input type="text" data-bind="value:updatesPerSeconds" />
-							<input type="range" data-bind="value:updatesPerSeconds" min="0.1" max = "40" />
-						</li>
-						<li>
-							<label>Current Value</label>
-							<input type="text" data-bind="value:value" />
-						</li>
-					</ul>
-					<button data-bind="click:toggle, text: toggleText"></button>
+			<!-- Left column -->
+			<div class="span10 fullHeight">
+				<div id="output"></div>
+			</div>
 
-				</fieldset>
-				<ul>
-					<li data-bind="click:setRenderer(CanvasApiRenderer)">Canvas Api Renderer</li>
-					<li onclick="click:setRenderer(CanvasPixelRenderer)">Canvas Pixel Renderer</li>
-				</ul>
+			<!-- Right column -->
+			<div class="span2">
+				<div id="controls">
+					<fieldset>
+						<legend>Data Generator</legend>
+						<ul>
+							<li>
+								<label>Updates per second</label>
+								<input type="text" data-bind="value:updatesPerSeconds" />
+								<input type="range" data-bind="value:updatesPerSeconds" min="0.1" max = "40" />
+							</li>
+							<li>
+								<label>Current Value</label>
+								<input type="text" data-bind="value:value" />
+							</li>
+						</ul>
+						<div class="btn btn-primary" data-bind="click:toggle, text: toggleText"></div>
+					</fieldset>
+					<fieldset>
+						<legend>Renderer</legend>
+						<ul class="btn-group btn-group-vertical" data-bind="foreach: renderer">
+							<li 
+								class="btn btn-primary" 
+								data-bind="
+									css:{'btn-primary': $parent.activeRenderer()===className},
+									click:$parent.setRenderer.bind( $parent, className),
+									html:name">
+							</li>
+						</ul>
+					</fieldset>
+				</div>
 			</div>
 		</div>
-		
-		
-		<script type="text/javascript" src="js/start.js"></script>
 	</body>
 </html>
