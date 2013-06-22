@@ -27,6 +27,7 @@ body{
 
 #output > li{
 	border-bottom: 1px solid #ccc;
+	overflow: hidden;
 }
 
 #sparklineContainer{

@@ -10,7 +10,10 @@ ControlViewModel = function()
 	*/
 	this.renderer = ko.observableArray([
 		{ "className": "CanvasApiRenderer", "name": "Canvas API Renderer" },
-		{ "className": "CanvasPixelRenderer", "name": "Canvas Pixel Renderer" }
+		{ "className": "CanvasPixelRenderer", "name": "Canvas Pixel Renderer" },
+		{ "className": "TwoJsWebGl", "name": "Two.js WebGl Renderer" },
+		{ "className": "TwoJsCanvas", "name": "Two.js Canvas Renderer" },
+		{ "className": "TwoJsSvg", "name": "Two.js SVG Renderer" }
 	]);
 
 	/**
@@ -18,7 +21,7 @@ ControlViewModel = function()
 	*/
 	this.isRunning = ko.observable( true );
 	this.toggleText = ko.observable( "running" );
-	this.activeRenderer = ko.observable( this.renderer()[0].className );
+	this.activeRenderer = ko.observable( this.renderer()[3].className );
 	this.chartNumber = ko.observable( 1 );
 	this.updatesPerSeconds = ko.observable( 1 );
 	this.value = ko.observable( 1 );
@@ -123,8 +126,8 @@ ControlViewModel.prototype._updateCharts = function()
 	*/
 	for( i; i < this._pChartContainers.length; i++ )
 	{
-		this._pChartContainers[ i ].remove();
 		this._pSparkLines[ i ].destroy();
+		this._pChartContainers[ i ].remove();
 	}
 
 	/**
