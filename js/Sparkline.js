@@ -49,6 +49,31 @@ Sparkline.defaults = {
 	*/
 	yPadding: 0.3
 };
+
+/**
+* This allows it to initalise the sparkline with a dataset
+*
+* @param ARRAY pInitialData
+*/
+Sparkline.prototype.setInitialData = function( pValues, pTimestamps )
+{
+	this._pValues = pValues;
+	this._pTimestamps = pTimestamps;
+};
+
+/**
+* Returns the currently displayed values
+*
+* @returns ARRAY pValues
+*/
+Sparkline.prototype.getCurrentData = function()
+{
+	return {
+		values: this._pValues,
+		timestamps: this._pTimestamps
+	};
+};
+
 /**
 * This method takes a new entry and draws it straight away
 *

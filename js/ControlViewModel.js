@@ -3,15 +3,17 @@ ControlViewModel = function()
 	this._eContainer = document.getElementById( "output" );
 	this._pChartContainers = [];
 	this._pSparkLines = [];
+	this._nTimeout = null;
+	window.onresize = this._updateChartNumber.bind( this );
 
 	this.renderer = ko.observableArray([
 		{ "className": "CanvasApiRenderer", "name": "Canvas API Renderer" },
 		{ "className": "CanvasPixelRenderer", "name": "Canvas Pixel Renderer" }
 	]);
 
-
-	this._nTimeout = null;
-
+	/**
+	* Observables
+	*/
 	this.isRunning = ko.observable( true );
 	this.toggleText = ko.observable( "running" );
 	this.activeRenderer = ko.observable( this.renderer()[0].className );
@@ -21,16 +23,21 @@ ControlViewModel = function()
 	this.updatesPerSeconds = ko.observable( 1 );
 	this.updatesPerSeconds.subscribe( this.onFrequencyUpdate.bind( this ) );
 	this.value = ko.observable( 1 );
-	this._updateChartNumber();
 
+	/**
+	* Startup
+	*/
+	this._updateChartNumber();
 	this.addPoint();
 };
 
 ControlViewModel.prototype.setChartNumber = function( nOffset )
 {
-	if( this.chartNumber() + nOffset > 0 )
+	var nValue = parseInt( this.chartNumber(), 10 ) + nOffset;
+
+	if( nValue > 0 )
 	{
-		this.chartNumber( this.chartNumber() + nOffset );
+		this.chartNumber( nValue );
 	}
 };
 
@@ -43,11 +50,11 @@ ControlViewModel.prototype.onFrequencyUpdate = function()
 	}
 };
 
-
 ControlViewModel.prototype._updateChartNumber = function()
 {
-	var i,
-	nChartContainerHeight = Math.floor( this._eContainer.offsetHeight / this.chartNumber() ) -1;
+	var i, mData,
+	nChartContainerHeight = Math.floor( this._eContainer.offsetHeight / this.chartNumber() ) -1,
+	nChartContainerWidth = document.getElementById( "output" ).offsetWidth;
 
 	/**
 	* Create containers
@@ -59,11 +66,18 @@ ControlViewModel.prototype._updateChartNumber = function()
 			this._pChartContainers[ i ] = document.createElement( "li" );
 			this._eContainer.appendChild( this._pChartContainers[ i ] );
 			this._pSparkLines[ i ] = new Sparkline( this._pChartContainers[ i ] );
+
+			if( i !== 0 )
+			{
+				mData = this._pSparkLines[ 0 ].getCurrentData();
+				this._pSparkLines[ i ].setInitialData( mData.values, mData.timestamps );
+			}
+
 			this._pSparkLines[ i ].setRenderer( new renderer[ this.activeRenderer() ]() );
 		}
 
 		this._pChartContainers[ i ].style.height = nChartContainerHeight + "px";
-		this._pSparkLines[ i ].setSize( this._pChartContainers[ i ].offsetWidth, nChartContainerHeight );
+		this._pSparkLines[ i ].setSize( nChartContainerWidth, nChartContainerHeight );
 	}
 
 	/**
@@ -76,9 +90,10 @@ ControlViewModel.prototype._updateChartNumber = function()
 	}
 
 	/**
-	* Remove surplus containers
+	* Remove surplus containers and sparklines
 	*/
 	this._pChartContainers.splice( this.chartNumber() );
+	this._pSparkLines.splice( this.chartNumber() );
 };
 
 ControlViewModel.prototype._applyRenderer = function()
