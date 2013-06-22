@@ -40,7 +40,13 @@ TwoJsRenderer.prototype.setSize = function( nWidth, nHeight )
 	this._nHeight = nHeight;
 	this._oTwo.height = nHeight;
 	this._oTwo.width = nWidth;
-	this._oTwo.update();
+
+	if( this._oPolygon )
+	{
+		this._oPolygon.vertices[ this._oPolygon.vertices.length - 2 ].set( this._nWidth, this._nHeight );
+		this._oPolygon.vertices[ this._oPolygon.vertices.length - 1 ].set( 0, this._nHeight );
+		this._oTwo.update();
+	}
 };
 
 TwoJsRenderer.prototype.draw = function( pXCoords, pYCoords )
