@@ -6,7 +6,7 @@ TwoJsRenderer = function( oType )
 	this._eContainer = null;
 	this._nWidth = null;
 	this._nHeight = null;
-	this._mSettings = null;AAA = this;
+	this._mSettings = null;
 	this._oPolygon = null;
 };
 
