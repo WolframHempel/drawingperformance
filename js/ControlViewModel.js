@@ -4,6 +4,8 @@ ControlViewModel = function()
 	this._pChartContainers = [];
 	this._pSparkLines = [];
 	this._nTimeout = null;
+	this._nFramesForInterval = 0;
+	this._nCurrentIntervalStart = 0;
 
 	/**
 	* Renderers
@@ -22,10 +24,12 @@ ControlViewModel = function()
 	*/
 	this.isRunning = ko.observable( true );
 	this.toggleText = ko.observable( "running" );
-	this.activeRenderer = ko.observable( this.renderer()[2].className );
+	this.activeRenderer = ko.observable( this.renderer()[0].className );
 	this.chartNumber = ko.observable( 1 );
 	this.updatesPerSeconds = ko.observable( 1 );
 	this.value = ko.observable( 1 );
+	this.fps = ko.observable( 0 );
+	this.fpsMeasureInterval = ko.observable( 500 );
 
 	/**
 	* Events
@@ -38,6 +42,7 @@ ControlViewModel = function()
 	/**
 	* Startup
 	*/
+	requestAnimationFrame( this._measurePerformance.bind( this ) );
 	this._updateCharts();
 	this._addPoint();
 };
@@ -71,6 +76,20 @@ ControlViewModel.prototype.toggle = function()
 /************************************************************
 * PRIVATE METHODS											*
 ************************************************************/
+ControlViewModel.prototype._measurePerformance = function()
+{
+	this._nFramesForInterval++;
+
+	if( performance.now() - this._nCurrentIntervalStart > this.fpsMeasureInterval() )
+	{
+		this.fps( this._nFramesForInterval * ( 1000 / this.fpsMeasureInterval() ) );
+		this._nCurrentIntervalStart = performance.now();
+		this._nFramesForInterval = 0;
+	}
+
+	requestAnimationFrame( this._measurePerformance.bind( this ) );
+};
+
 ControlViewModel.prototype._addPoint = function()
 {
 	this.value( this.value() * (  0.999 + ( Math.random() / 500 ) ) );

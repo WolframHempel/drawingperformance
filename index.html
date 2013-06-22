@@ -40,6 +40,21 @@
 			<div class="span2">
 				<div id="controls">
 					<fieldset>
+						<legend>Performance</legend>
+						<ul>
+							<li>
+								<h2>
+									<span data-bind="text:fps"></span>
+									<small>fps</small>
+								</h2>
+							</li>
+							<li>
+								<label>Measure Interval</label>
+								<input type="text" data-bind="value:fpsMeasureInterval" />
+							</li>
+						</ul>
+					</fieldset>
+					<fieldset>
 						<legend>Data Generator</legend>
 						<ul>
 							<li>
