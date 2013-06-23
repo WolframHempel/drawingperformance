@@ -96,7 +96,10 @@
 							<li 
 								class="btn btn-primary" 
 								data-bind="
-									css:{'btn-primary': $parent.activeRenderer()===className},
+									css:{
+										'btn-warning': $parent.activeRenderer()!==className && !stable,
+										'btn-primary': $parent.activeRenderer()===className
+									},
 									click:$parent.activeRenderer.bind( $parent, className),
 									html:name">
 							</li>
