@@ -25,7 +25,7 @@ ControlViewModel = function()
 	*/
 	this.isRunning = ko.observable( true );
 	this.toggleText = ko.observable( "running" );
-	this.activeRenderer = ko.observable( this.renderer()[3].className );
+	this.activeRenderer = ko.observable( this.renderer()[0].className );
 	this.chartNumber = ko.observable( 1 );
 	this.updatesPerSeconds = ko.observable( 1 );
 	this.value = ko.observable( 1 );
