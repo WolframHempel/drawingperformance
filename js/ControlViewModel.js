@@ -17,7 +17,8 @@ ControlViewModel = function()
 		{ "className": "NativeWebGl", "name": "Native WebGl Renderer" },
 		{ "className": "TwoJsWebGl", "name": "Two.js WebGl Renderer" },
 		{ "className": "TwoJsCanvas", "name": "Two.js Canvas Renderer" },
-		{ "className": "TwoJsSvg", "name": "Two.js SVG Renderer" }
+		{ "className": "TwoJsSvg", "name": "Two.js SVG Renderer" },
+		{ "className": "KineticRenderer", "name": "Kineticjs Canvas Renderer" }
 	]);
 
 	/**
@@ -25,7 +26,7 @@ ControlViewModel = function()
 	*/
 	this.isRunning = ko.observable( true );
 	this.toggleText = ko.observable( "running" );
-	this.activeRenderer = ko.observable( this.renderer()[3].className );
+	this.activeRenderer = ko.observable( this.renderer()[0].className );
 	this.chartNumber = ko.observable( 1 );
 	this.updatesPerSeconds = ko.observable( 1 );
 	this.value = ko.observable( 1 );
