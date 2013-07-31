@@ -39,22 +39,22 @@
 			this._layer.destroyChildren();
 		}
 
-//		var line = new Kinetic.Line({
-//			points: this._convertPointsArray(xCoords, yCoords),
-//			lineJoin: 'round',
-//			fill: this._settings.fillColor,
-//			stroke: this._settings.lineColor,
-//			strokeWidth: this._settings.lineWeight
-//		});
-//		this._layer.add(line);
-
-		var path = new Kinetic.Path({
-			data: this._convertPointsArrayToPath(xCoords, yCoords),
+		var polygon = new Kinetic.Polygon({
+			points: this._convertPointsArray(xCoords, yCoords),
+			lineJoin: 'round',
 			fill: this._settings.fillColor,
 			stroke: this._settings.lineColor,
 			strokeWidth: this._settings.lineWeight
 		});
-		this._layer.add(path);
+		this._layer.add(polygon);
+
+//		var path = new Kinetic.Path({
+//			data: this._convertPointsArrayToPath(xCoords, yCoords),
+//			fill: this._settings.fillColor,
+//			stroke: this._settings.lineColor,
+//			strokeWidth: this._settings.lineWeight
+//		});
+//		this._layer.add(path);
 
 		this._layer.draw();
 	};
